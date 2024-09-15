@@ -62,9 +62,80 @@ const userName = userInput || 'User';
 const X = 15;
 ok = X > 10 && X < 20;
 ok = X === 10 || X > 12 && userName; //比較演算子には優先順位が存在する。この場合、>が一番優先順位が高いため、X > 12の比較結果が一番最初に出てくる→今回の場合はtrue、次に高いのが===、これはfalseになる。次は&&、今回の場合はtrue（truthy）が左側に来ているのでuserNameを返す。最後に||、左がfalse（falsy）なので右側の値を返す。よって今回はuserNameがokの中身となる。
-console.log(ok); // okの中身がuserNameで58行目でuserInputが空文字であるため返す値は'User'となる
+// console.log(ok); // okの中身がuserNameで58行目でuserInputが空文字であるため返す値は'User'となる
 if (ok) {
-    console.log('OK!')
+    // console.log('OK!')
 } else {
     console.log('NO!')
 }
+ok = !true; // !は真偽値を反転させる（この場合のconsole.logはtrueではなく、falseが返る
+ok = !!X; // !!は右から順に適用される。この場合、!Xはfalseとなり!Xに!がつくイメージで反転させることでtrueとなる。Xはnumber型だけど!!をつけることで真偽値に型を変換している
+// console.log(ok);
+
+const hello = 'nya hello'
+{
+    const hello = 'NYA HELLO!'
+    // console.log(hello);
+} // {}はブロック文（ネストもできるよ）
+
+ok = 'nya hello'
+ok = ok ? 'OK' : 'NO'; //三項演算子というもの。2個目のokがtruthyであれば'OK'を返し、falsyであれば'NO'を返す。この場合、okで定義されているnya helloはtruthyであるため、'OK'が返る
+// console.log(ok);
+
+ok = true;
+if (ok) ok = 'OK!'
+else ok = 'NO'
+// console.log(ok); // やっていることは82行目と同じこと。1行にまとめたい等のときは三項演算子を使ったほうが良い（でも複雑になる場合はif文を使ったほうが良いかもしれない）
+
+// function hololoveMember(holomem) {
+    // if (holomem === 'mikochi') {
+    //     console.log('NYA HELLO!');
+    // } else if (holomem ==='aqua') {
+    //     console.log('konAqua'); 
+    // } else if (holomem === 'subaru'){
+    //     console.log('ajimaru');
+    // }
+// }
+// hololoveMember('subaru'); // これでも良いけどholomem ===を3回も使っているため冗長。そのため以下のようなswitch文を使用する
+
+function hololoveMember(holomem) {
+    switch (holomem) {
+        case 'mikochi': // case文を使用するときは{ブロック文}を使用してscopeを定めたほうが良い（118行目以降に詳細あり）
+            console.log('NYA HELLO!');
+            break;
+        case 'aqua':
+            console.log('konAqua'); 
+            break;
+        case 'subaru':
+            console.log('ajimaru');
+            break;
+        default:
+            console.log('NOT FOUND'); // caseに該当しない場合はこんな処理をしたいよーって時にはdefaulを使用する。今回はhoshimachiという上記3つに該当しないものを指定しているのでNOT FOUNDが返ってくる
+    }
+}
+hololoveMember('hoshimachi');
+
+function hololoveMember(holomem) {
+    switch (holomem) {
+        case 'mikochi': {
+            const message = 'NYA HELLO';
+            console.log(message);
+            break;
+        }
+        case 'aqua': {
+            const message = 'KON AQUQ';
+            console.log(message); 
+            break;
+        } 
+        case 'subaru': {
+            const message = ('AJIMARU');
+            console.log(message);
+            break;
+        }
+        default: {
+            const message = 'NOT FOUND'
+            console.log(message);
+        }
+    }
+}
+hololoveMember('mikochi'); //ブロック文を使用することで同じmessageを使用することができるようになった
